@@ -12,7 +12,6 @@ $(function() {
     return v ? v[2] : null;
  }
 
-
   // Initialize letiables
   let $window = $(window);
   let $usernameInput = $('.usernameInput'); // Input for username let $usernameInput = $('.usernameInput'); // Input for username
@@ -27,7 +26,6 @@ $(function() {
   // Prompt for setting a username
   let username;
   let cookieUsername = getCookie('username');
-  console.log(cookieUsername)
   let message = '';
   let mod = false;
   let connected = false;
@@ -39,12 +37,16 @@ $(function() {
   let password;
   let brackets;
 
+  let logoutButton = document.getElementById('logout');
+   
+  //runs when the window loads
   window.onload = function() {
     
 
     let bool2 = true;
     let bool3 = true;
     
+    //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
 
@@ -300,6 +302,12 @@ $(function() {
   
 
   // Click events
+
+  //when u click logout
+  logoutButton.onclick = function() {
+    document.cookie = "username=";
+    document.location.reload();
+  }
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {
