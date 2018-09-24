@@ -42,6 +42,19 @@ $(function() {
   //runs when the window loads
   window.onload = function() {
     
+    if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Welcome!', {
+      icon: 'favicon.ico',
+      body: "Hey there! Want to check out some off my other stuff?",
+    });
+
+    notification.onclick = function () {
+      window.open("http://vbcoding.tk");      
+    };
+
+  }
 
     let bool2 = true;
     let bool3 = true;
@@ -113,6 +126,7 @@ $(function() {
           document.cookie = "username" + "=" + username + ";" 
           //cancel the event if the msg includes []
       } else if(brackets == true) {
+          window.location.reload();
           //else just send the message
       } else {
         $loginPage.fadeOut();
