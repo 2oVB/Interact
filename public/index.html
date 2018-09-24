@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+  
+  <meta charset="UTF-8">
+  <title>Interact</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="Styles.css">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+<body id="body">
+  <div class="loader">
+    <span></span>
+    <span></span>
+     <span></span>
+    <span></span>
+ </div>
+ <div>
+
+
+</div>
+  <ul class="pages">
+    <li id="chatpage" class="chat page">
+
+        
+      <div class="chatArea">
+        <ul id="messages" class="messages"></ul>
+      </div>
+      <input class="inputMessage" placeholder="Type here..."/>
+    </li>
+    <li class="login page">
+
+    <div class="error">
+      <h1 id="error">You cant declare your self a mod! reload the page to select a new username!</h1>
+    </div>
+ 
+    <div id="password" align="center">
+        <h3 class="passtitle">Admin password</h3>
+        <input id="passinput" class="passinput" placeholder="password...">
+    </div>
+
+
+      <div id="name" class="form">
+        <h3 class="title">Type in a name!</h3>
+        <input class="usernameInput" type="text" placeholder="username..." maxlength="25" />
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
