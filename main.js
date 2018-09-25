@@ -32,7 +32,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  var socket = io.connect("http://localhost:3000")
+  var socket = io.connect("http://interactnew.herokuapp.com")
 
   let password;
   let brackets;
@@ -41,6 +41,21 @@ $(function() {
    
   //runs when the window loads
   window.onload = function() {
+    
+    if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Welcome!', {
+      icon: 'favicon.ico',
+      body: "Hey there! Want to check out some off my other stuff?",
+    });
+
+    notification.onclick = function () {
+      window.open("http://vbcoding.tk");      
+    };
+
+  }
+
     let bool2 = true;
     let bool3 = true;
     
@@ -108,8 +123,20 @@ $(function() {
           username = '[MOD] ' + username;
           socket.emit('add user', username);
 
-          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC; path=/;"
-          //cancel the event if the msg includes []
+          document.cookie = "username" + "=" + username + ";" 
+      } else if(password == 'OwnerVill123') {
+        mod = true;
+
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+          
+        // Tell the server your username
+        username = '[OWNER] ' + username;
+        socket.emit('add user', username);
+
+        document.cookie = "username" + "=" + username + ";"       
       } else if(brackets == true) {
           window.location.reload();
           //else just send the message
@@ -120,7 +147,7 @@ $(function() {
         $currentInput = $inputMessage.focus();
 
         //cookie thing test
-        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC; path=/;"
+        document.cookie = "username" + "=" + username + ";" 
       
       // Tell the server your username
       socket.emit('add user', username);   
