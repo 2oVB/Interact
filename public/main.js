@@ -62,9 +62,9 @@ $(function() {
     //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
-
-      if(bool2 == true) {
-          if(message == '!info' || '!INFO') {
+     
+      if(message == '!info' || '!INFO') {
+        if(bool2 == true) {
             addChatMessage({
               username:'[ALERT]',
               message:'Interact is a project made by Vilhelm Backander, if u want to reach out to me the best way is to email me at Vilhelm.backander@gmail.com or our discord server'
@@ -81,6 +81,7 @@ $(function() {
           $currentInput = $inputMessage.focus();
 
           username = cookieUsername;
+          document.cookie = "username" + "=" + username + ";" 
             
           // Tell the server your username
           socket.emit('add user', cookieUsername);      
@@ -163,7 +164,6 @@ $(function() {
 
     // if there is a non-empty message and a socket connection
     if (message && connected) {
-      if(!cookieUsername) {
         $inputMessage.val('');
         addChatMessage({
           username: username,
@@ -172,16 +172,6 @@ $(function() {
         console.log("test")
         // tell server to execute 'new message' and send along one parameter
         socket.emit('new message', message);      
-    }  else {
-      $inputMessage.val('');
-      addChatMessage({
-        username: cookieUsername,
-        message: message
-      });
-      console.log("test2")
-      // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);            
-    }
   }
   }
 
