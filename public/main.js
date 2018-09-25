@@ -32,7 +32,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  var socket = io.connect("http://localhost:3000")
+  var socket = io.connect("http://interactnew.herokuapp.com")
 
   let password;
   let brackets;
