@@ -102,7 +102,7 @@ $(function() {
     if (data.numUsers === 0) {
       msgL = "You are the only one on the server."
     } else {
-      msgL = " there are " + data.numUsers + " participants";
+      msgL = " there are " + data.numUsers + " participants other than you";
     }
     log(msgL);
   }
