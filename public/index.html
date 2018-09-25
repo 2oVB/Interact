@@ -9,28 +9,26 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <link rel="stylesheet" href="Styles.css">
+  <link rel="stylesheet" href="Loading.css">
   <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 </head>
 <body id="body">
-  <div class="loader">
-    <span></span>
-    <span></span>
-     <span></span>
-    <span></span>
- </div>
- <div>
 
-
-</div>
   <ul class="pages">
     <li id="chatpage" class="chat page">
 
         
       <div class="chatArea">
         <button id="logout" class="button-primary logout">Logout (forever...)</button>
+        <input class="inputMessage" placeholder="Send a message..."/>
         <ul id="messages" class="messages"></ul>
+        <div class="loader" style="display:none">
+          <span></span>
+          <span></span>
+           <span></span>
+          <span></span>
+       </div>
       </div>
-      <input class="inputMessage" placeholder="Send a message..."/>
     </li>
     <li class="login page">
 

@@ -8,7 +8,7 @@ $(function() {
   ];
 
   function getCookie(name) {
-    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
  }
 
@@ -43,7 +43,7 @@ $(function() {
   window.onload = function() {
     
     if (Notification.permission !== "granted")
-      Notification.requestPermission();
+    Notification.requestPermission();
   else {
     var notification = new Notification('Welcome!', {
       icon: 'favicon.ico',
@@ -62,9 +62,9 @@ $(function() {
     //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
-     
-      if(message == '!info' || '!INFO') {
-        if(bool2 == true) {
+
+      if(bool2 == true) {
+          if(message == '!info' || '!INFO') {
             addChatMessage({
               username:'[ALERT]',
               message:'Interact is a project made by Vilhelm Backander, if u want to reach out to me the best way is to email me at Vilhelm.backander@gmail.com or our discord server'
@@ -81,7 +81,6 @@ $(function() {
           $currentInput = $inputMessage.focus();
 
           username = cookieUsername;
-          document.cookie = "username" + "=" + username + ";" 
             
           // Tell the server your username
           socket.emit('add user', cookieUsername);      
@@ -96,13 +95,11 @@ $(function() {
 
   const addParticipantsMessage = (data) => {
     let msgL
-    
-    data.numUsers--;
 
-    if (data.numUsers === 0) {
-      msgL = "You are the only one on the server."
+    if (data.numUsers === 1) {
+      msgL = " there's 1 participant";
     } else {
-      msgL = " there are " + data.numUsers + " participants other than you";
+      msgL = " there are " + data.numUsers + " participants";
     }
     log(msgL);
   }
@@ -166,6 +163,7 @@ $(function() {
 
     // if there is a non-empty message and a socket connection
     if (message && connected) {
+      if(!cookieUsername) {
         $inputMessage.val('');
         addChatMessage({
           username: username,
@@ -174,6 +172,16 @@ $(function() {
         console.log("test")
         // tell server to execute 'new message' and send along one parameter
         socket.emit('new message', message);      
+    }  else {
+      $inputMessage.val('');
+      addChatMessage({
+        username: cookieUsername,
+        message: message
+      });
+      console.log("test2")
+      // tell server to execute 'new message' and send along one parameter
+      socket.emit('new message', message);            
+    }
   }
   }
 
