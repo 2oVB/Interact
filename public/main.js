@@ -43,7 +43,7 @@ $(function() {
   window.onload = function() {
     
     if (Notification.permission !== "granted")
-    Notification.requestPermission();
+      Notification.requestPermission();
   else {
     var notification = new Notification('Welcome!', {
       icon: 'favicon.ico',
@@ -96,9 +96,11 @@ $(function() {
 
   const addParticipantsMessage = (data) => {
     let msgL
+    
+    data.numUsers--;
 
-    if (data.numUsers === 1) {
-      msgL = " there's 1 participant";
+    if (data.numUsers === 0) {
+      msgL = "You are the only one on the server."
     } else {
       msgL = " there are " + data.numUsers + " participants";
     }
