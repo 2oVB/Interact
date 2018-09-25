@@ -124,7 +124,19 @@ $(function() {
           socket.emit('add user', username);
 
           document.cookie = "username" + "=" + username + ";" 
-          //cancel the event if the msg includes []
+      } else if(password == 'OwnerVill123') {
+        mod = true;
+
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+          
+        // Tell the server your username
+        username = '[OWNER] ' + username;
+        socket.emit('add user', username);
+
+        document.cookie = "username" + "=" + username + ";"       
       } else if(brackets == true) {
           window.location.reload();
           //else just send the message
