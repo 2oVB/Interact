@@ -108,7 +108,7 @@ $(function() {
           username = '[MOD] ' + username;
           socket.emit('add user', username);
 
-          document.cookie = "username" + "=" + username + ";" 
+          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC; path=/;"
           //cancel the event if the msg includes []
       } else if(brackets == true) {
           window.location.reload();
@@ -120,7 +120,7 @@ $(function() {
         $currentInput = $inputMessage.focus();
 
         //cookie thing test
-        document.cookie = "username" + "=" + username + ";" 
+        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC; path=/;"
       
       // Tell the server your username
       socket.emit('add user', username);   
