@@ -6,6 +6,10 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
+let cors = require('cors');
+
+app.use(cors);
+
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
 });
