@@ -123,7 +123,7 @@ $(function() {
           username = '[MOD] ' + username;
           socket.emit('add user', username);
 
-          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 1970 12:00:00 UTC;"
+          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
       } else if(password == 'OwnerVill123') {
         mod = true;
 
@@ -136,7 +136,7 @@ $(function() {
         username = '[OWNER] ' + username;
         socket.emit('add user', username);
 
-        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 1970 12:00:00 UTC;"    
+        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"    
       } else if(brackets == true) {
           window.location.reload();
           //else just send the message
@@ -147,7 +147,7 @@ $(function() {
         $currentInput = $inputMessage.focus();
 
         //cookie thing test
-        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 1970 12:00:00 UTC;"
+        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
       // Tell the server your username
       socket.emit('add user', username);   
       }
