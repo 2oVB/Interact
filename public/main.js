@@ -148,7 +148,8 @@ $(function() {
       socket.emit('add user', username);   
       }
 }
-
+let cansend = true;
+let lastmsg = 'the sky is blue';
   // Sends a chat message
   const sendMessage = () => {
     message = $inputMessage.val();
@@ -158,27 +159,40 @@ $(function() {
 
     // if there is a non-empty message and a socket connection
     if (message && connected) {
-      if(!cookieUsername) {
-        $inputMessage.val('');
-        addChatMessage({
-          username: username,
-          message: message
-        });
-        console.log("test")
-        // tell server to execute 'new message' and send along one parameter
-        socket.emit('new message', message);      
-    }  else {
-      $inputMessage.val('');
-      addChatMessage({
-        username: cookieUsername,
-        message: message
-      });
-      console.log("test2")
-      // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);            
-    }
+        if(lastmsg && lastmsg !== message) {
+         if(cansend == true) {
+          if(!cookieUsername) {
+            $inputMessage.val('');
+            addChatMessage({
+              username: username,
+              message: message
+            });
+            console.log("test")
+            // tell server to execute 'new message' and send along one parameter
+            socket.emit('new message', message);      
+        }  else {
+          $inputMessage.val('');
+          addChatMessage({
+            username: cookieUsername,
+            message: message
+          });
+          console.log("test2")
+          // tell server to execute 'new message' and send along one parameter
+          socket.emit('new message', message);            
+        }
+        cansend = false;
+        lastmsg = message;
+  } else {
+    log("Wait 3 seconds before sending!")
+    setTimeout(function() {
+      cansend = true;
+    }, 3000);
   }
+} else if(lastmsg == message) {
+  cansend = false;
+}
   }
+}
 
   // Log a message
     const log = (message, options) => {
