@@ -62,16 +62,12 @@ $(function() {
     //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
-
+      
       if(bool2 == true) {
-          if(message == '!info' || '!INFO') {
-            addChatMessage({
-              username:'[ALERT]',
-              message:'Interact is a project made by Vilhelm Backander, if u want to reach out to me the best way is to email me at Vilhelm.backander@gmail.com or our discord server'
-            });
-            bool2 = false;
-          }
+        if(message == '!music') {
+          document.getElementById('music').display = '';
         }
+      }
 
       if(bool3 == true) {
         if(cookieUsername) {
