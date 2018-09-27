@@ -32,7 +32,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  var socket = io.connect("http://interactnew.herokuapp.com")
+  var socket = io.connect("https://interactnew.herokuapp.com")
 
   let password;
   let brackets;
@@ -51,7 +51,7 @@ $(function() {
     });
 
     notification.onclick = function () {
-      window.open("http://vbcoding.tk");      
+      window.open("https://vbcoding.tk");      
     };
 
   }
