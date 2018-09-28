@@ -8,7 +8,7 @@ $(function() {
   ];
 
   function getCookie(name) {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
  }
 
@@ -32,12 +32,10 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  var socket = io.connect("https://interactnew.herokuapp.com")
+  let socket = io.connect("https://interactnew.herokuapp.com")
 
   let password;
   let brackets;
-
-  let logoutButton = document.getElementById('logout');
    
   //runs when the window loads
   window.onload = function() {
@@ -45,7 +43,7 @@ $(function() {
     if (Notification.permission !== "granted")
     Notification.requestPermission();
   else {
-    var notification = new Notification('Welcome!', {
+    let notification = new Notification('Welcome!', {
       icon: 'favicon.ico',
       body: "Hey there! Want to check out some off my other stuff?",
     });
@@ -65,7 +63,7 @@ $(function() {
       
       if(bool2 == true) {
         if(message == '!music') {
-          document.getElementById('music').display = '';
+
         }
       }
 
@@ -92,10 +90,10 @@ $(function() {
   const addParticipantsMessage = (data) => {
     let msgL
 
-    if (data.numUsers === 1) {
-      msgL = " there's 1 participant";
+    if (data.numUsers === 0) {
+      msgL = " You are the only one on the server";
     } else {
-      msgL = " there are " + data.numUsers + " participants";
+      msgL = " There are " + data.numUsers + " participants other than you";
     }
     log(msgL);
   }
@@ -133,6 +131,8 @@ $(function() {
         socket.emit('add user', username);
 
         document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"    
+      } else if(password == 'test') {
+
       } else if(brackets == true) {
           window.location.reload();
           //else just send the message
@@ -162,6 +162,9 @@ let lastmsg = 'the sky is blue';
         if(lastmsg && lastmsg !== message) {
          if(cansend == true) {
           if(!cookieUsername) {
+            cansend = false;
+            canSendRST();
+            lastmsg = message;
             $inputMessage.val('');
             addChatMessage({
               username: username,
@@ -171,27 +174,30 @@ let lastmsg = 'the sky is blue';
             // tell server to execute 'new message' and send along one parameter
             socket.emit('new message', message);      
         }  else {
+          cansend = false;
+          canSendRST();
+          lastmsg = message;
           $inputMessage.val('');
           addChatMessage({
             username: cookieUsername,
             message: message
           });
-          console.log("test2")
           // tell server to execute 'new message' and send along one parameter
           socket.emit('new message', message);            
         }
+  } else if(lastmsg == message) {
         cansend = false;
-        lastmsg = message;
   } else {
     log("Wait 3 seconds before sending!")
-    setTimeout(function() {
-      cansend = true;
-    }, 3000);
   }
-} else if(lastmsg == message) {
-  cansend = false;
 }
-  }
+    }
+
+function canSendRST() {
+  setTimeout(function() {
+    cansend = true;
+  }, 3000);
+}
 }
 
   // Log a message
@@ -338,12 +344,6 @@ let lastmsg = 'the sky is blue';
 
   // Click events
 
-  //when u click logout
-  logoutButton.onclick = function() {
-    document.cookie = "username=";
-    document.location.reload();
-  }
-
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {
     $inputMessage.focus();
@@ -382,8 +382,8 @@ let lastmsg = 'the sky is blue';
 
   // Whenever the server emits 'typing', show the typing message
   socket.on('typing', (data) => {
-    addChatTyping(data);
-  });
+    addChatTyping(">" + data);
+});
 
   // Whenever the server emits 'stop typing', kill the typing message
   socket.on('stop typing', (data) => {
