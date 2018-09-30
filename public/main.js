@@ -12,6 +12,9 @@ $(function() {
     return v ? v[2] : null;
  }
 
+  let image = document.createElement("img");
+  image.src = 'favicon.ico';
+
   // Initialize letiables
   let $window = $(window);
   let $usernameInput = $('.usernameInput'); // Input for username let $usernameInput = $('.usernameInput'); // Input for username
@@ -28,6 +31,7 @@ $(function() {
   let cookieUsername = getCookie('username');
   let message = '';
   let mod = false;
+  let owner = false;
   let connected = false;
   let typing = false;
   let lastTypingTime;
@@ -62,7 +66,7 @@ $(function() {
       password = cleanInput($passInput.val().trim());
       
       if(bool2 == true) {
-        if(message == '!music') {
+        if(message == '!quote') {
 
         }
       }
@@ -90,10 +94,10 @@ $(function() {
   const addParticipantsMessage = (data) => {
     let msgL
 
-    if (data.numUsers === 0) {
+    if (data.numUsers === 1) {
       msgL = " You are the only one on the server";
     } else {
-      msgL = " There are " + data.numUsers + " participants other than you";
+      msgL = " There are " + data.numUsers + " participants on the server!";
     }
     log(msgL);
   }
