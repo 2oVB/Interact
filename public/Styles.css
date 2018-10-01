@@ -213,14 +213,6 @@ ul {
 
 /* modes */
 
-.whitemd {
-  display:none; 
-
-  margin: 0% auto;
-}
-
-.darkmd {
-  display:none; 
-
-  margin: 0% auto;
+.logout {
+  width:25%;
 }

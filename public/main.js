@@ -110,6 +110,11 @@ $(function() {
   
     }
 
+    document.getElementById('logout').onclick = function() {
+      document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
+      window.location.reload();
+    }
+
   const addParticipantsMessage = (data) => {
     let msgL
 
@@ -127,8 +132,22 @@ $(function() {
 
       brackets = username.includes('[');
 
-      // If the password is right add mod
-      if (password == 'Vill123') {
+        // If the password is right add mod
+        if(username) {
+          if (password == 'Vill123') {
+            mod = true;
+
+            $loginPage.fadeOut();
+            $chatPage.show();
+            $loginPage.off('click');
+            $currentInput = $inputMessage.focus();
+              
+            // Tell the server your username
+            username = '[MOD] ' + username;
+            socket.emit('add user', username);
+
+            document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
+        } else if(password == 'OwnerVill123') {
           mod = true;
 
           $loginPage.fadeOut();
@@ -137,38 +156,26 @@ $(function() {
           $currentInput = $inputMessage.focus();
             
           // Tell the server your username
-          username = '[MOD] ' + username;
+          username = '[OWNER] ' + username;
           socket.emit('add user', username);
 
+          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"    
+        } else if(password == 'test') {
+
+        } else if(brackets == true) {
+            window.location.reload();
+            //else just send the message
+        } else {
+          $loginPage.fadeOut();
+          $chatPage.show();
+          $loginPage.off('click');
+          $currentInput = $inputMessage.focus();
+
+          //cookie thing test
           document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
-      } else if(password == 'OwnerVill123') {
-        mod = true;
-
-        $loginPage.fadeOut();
-        $chatPage.show();
-        $loginPage.off('click');
-        $currentInput = $inputMessage.focus();
-          
         // Tell the server your username
-        username = '[OWNER] ' + username;
-        socket.emit('add user', username);
-
-        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"    
-      } else if(password == 'test') {
-
-      } else if(brackets == true) {
-          window.location.reload();
-          //else just send the message
-      } else {
-        $loginPage.fadeOut();
-        $chatPage.show();
-        $loginPage.off('click');
-        $currentInput = $inputMessage.focus();
-
-        //cookie thing test
-        document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
-      // Tell the server your username
-      socket.emit('add user', username);   
+        socket.emit('add user', username);   
+        }
       }
 }
 let cansend = true;
