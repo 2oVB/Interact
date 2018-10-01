@@ -66,13 +66,16 @@ $(function() {
       password = cleanInput($passInput.val().trim());
 
       let fuckH = message.includes('fuck');
+      let gayH = message.includes('gay');
+      let dmH = message.includes('din mamma');
+      let niggerH = message.includes('nigger');
       
       if(bool2 == true) {
-        if(fuckH == true) {
+        if(fuckH == true || gayH == true || dmH == true || niggerH == true) {
 
           message = "[" + username + " HAS BEEN BANNED FROM THE SERVER" + "]";
           //username = "[BAN HAMMER]";
-          coo = "[BAN HAMMER]";
+          cookieUsername = "[BAN HAMMER]";
 
           addChatMessage({
             username:"[BAN HAMMER]",
