@@ -57,7 +57,7 @@ ul {
 /* Login Page */
 
 .login.page {
-  background-color: #262626
+  background-image: url("background.png");
 }
 
 .login.page .form {
@@ -119,7 +119,7 @@ ul {
 
 .chat.page {
   display: none;
-  background-color: #262626
+  background-image: url("background.png");
 }
 
 .music {
