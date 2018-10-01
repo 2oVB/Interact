@@ -64,10 +64,26 @@ $(function() {
     //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
+
+      let fuckH = message.includes('fuck');
       
       if(bool2 == true) {
-        if(message == '!quote') {
+        if(fuckH == true) {
 
+          message = "[" + username + " HAS BEEN BANNED FROM THE SERVER" + "]";
+          //username = "[BAN HAMMER]";
+          coo = "[BAN HAMMER]";
+
+          addChatMessage({
+            username:"[BAN HAMMER]",
+            message: username + " has been banned from the server"
+          });
+
+          document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
+          this.window.location.reload();
+          console.log("you have been banned from the server!")
+          socket.emit('new message', message);
+          bool2 = false;
         }
       }
 
