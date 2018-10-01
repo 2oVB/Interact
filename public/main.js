@@ -179,35 +179,36 @@ let lastmsg = 'the sky is blue';
 
     // Prevent markup from being injected into the message
     message = cleanInput(message);
-
-    // if there is a non-empty message and a socket connection
-    if (message && connected) {
-        if(lastmsg && lastmsg !== message) {
-         if(cansend == true) {
-          if(!cookieUsername) {
+    if(message.length >= 100) {
+      log("You cant send a message longer than 100 letters!");
+    } else {
+      if (message && connected) {
+          if(lastmsg && lastmsg !== message) {
+          if(cansend == true) {
+            if(!cookieUsername) {
+              cansend = false;
+              canSendRST();
+              lastmsg = message;
+              $inputMessage.val('');
+              addChatMessage({
+                username: username,
+                message: message
+              });
+              console.log("test")
+              // tell server to execute 'new message' and send along one parameter
+              socket.emit('new message', message);      
+          }  else {
             cansend = false;
             canSendRST();
             lastmsg = message;
             $inputMessage.val('');
             addChatMessage({
-              username: username,
+              username: cookieUsername,
               message: message
             });
-            console.log("test")
             // tell server to execute 'new message' and send along one parameter
-            socket.emit('new message', message);      
-        }  else {
-          cansend = false;
-          canSendRST();
-          lastmsg = message;
-          $inputMessage.val('');
-          addChatMessage({
-            username: cookieUsername,
-            message: message
-          });
-          // tell server to execute 'new message' and send along one parameter
-          socket.emit('new message', message);            
-        }
+            socket.emit('new message', message);            
+          }
   } else if(lastmsg == message) {
         cansend = false;
   } else {
@@ -215,6 +216,7 @@ let lastmsg = 'the sky is blue';
   }
 }
     }
+  }
 
 function canSendRST() {
   setTimeout(function() {
