@@ -381,7 +381,7 @@ function canSendRST() {
   }
 
   document.getElementById('updates').onclick = function() {
-    window.location = 'http://interactonline.tk/updates'
+    window.location = 'updates'
   }
 
   // Focus input when clicking on the message input's border
