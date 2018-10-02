@@ -110,11 +110,6 @@ $(function() {
   
     }
 
-    document.getElementById('logout').onclick = function() {
-      document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
-      window.location.reload();
-    }
-
   const addParticipantsMessage = (data) => {
     let msgL
 
@@ -375,6 +370,19 @@ function canSendRST() {
   
 
   // Click events
+
+  document.getElementById('logout').onclick = function() {
+    document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
+    window.location.reload();
+  }
+
+  document.getElementById('home').onclick = function() {
+    window.location = 'http://vbcoding.tk'
+  }
+
+  document.getElementById('updates').onclick = function() {
+    window.location = 'http://interactonline.tk/updates'
+  }
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {

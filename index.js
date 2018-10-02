@@ -12,10 +12,11 @@ server.listen(port, () => {
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/updates', express.static('public/updates'));
 
 // Chatroom
 
-let numUsers = 0;
+let numnumUsers = 0;
 
 io.on('connection', (socket) => {
     let addedUser = false;

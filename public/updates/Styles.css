@@ -1,0 +1,13 @@
+/* text */
+
+.title {
+    text-align: center;
+    padding: 40px;
+}
+
+/* spacer */
+
+.spacer {
+    border: 2px solid black;
+    border-radius: 5px;
+  }
