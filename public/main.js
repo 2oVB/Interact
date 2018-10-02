@@ -36,7 +36,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  let socket = io.connect("interactnew.herokuapp.com")
+  let socket = io.connect("interactnew.herokuapp.com/socket.io/socket.io.js")
 
   let password;
   let brackets;
