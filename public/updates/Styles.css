@@ -11,3 +11,10 @@
     border: 2px solid black;
     border-radius: 5px;
   }
+
+/* buttons */
+
+.home {
+    width:30%;
+    height:10%;
+}
