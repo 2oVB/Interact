@@ -377,11 +377,11 @@ function canSendRST() {
   }
 
   document.getElementById('home').onclick = function() {
-    window.location = 'http://vbcoding.tk'
+    window.open('http://vbcoding.tk');
   }
 
   document.getElementById('updates').onclick = function() {
-    window.location = 'updates'
+    window.open('updates');
   }
 
   // Focus input when clicking on the message input's border
