@@ -36,7 +36,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  let socket = io.connect("https://interactnew.herokuapp.com")
+  let socket = io();
 
   let password;
   let brackets;
@@ -53,7 +53,7 @@ $(function() {
     });
 
     notification.onclick = function () {
-      window.open("http://vbcoding.tk");      
+      window.open("https://vbcoding.tk");      
     };
 
   }
@@ -377,11 +377,11 @@ function canSendRST() {
   }
 
   document.getElementById('home').onclick = function() {
-    window.location.replace('http://vbcoding.tk');
+    window.location = 'http://vbcoding.tk';
   }
 
   document.getElementById('updates').onclick = function() {
-    window.open('updates')
+    window.location = 'http//interactonline.tk/updates';
   }
 
   // Focus input when clicking on the message input's border

@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
 
-let numnumUsers = 0;
+let numUsers = 0;
 
 io.on('connection', (socket) => {
     let addedUser = false;
@@ -50,6 +50,7 @@ io.on('connection', (socket) => {
   socket.on('close', () => {
     socket.disconnect()
   });
+  
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
