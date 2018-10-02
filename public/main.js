@@ -36,7 +36,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
 
-  let socket = io.connect("https://interactnew.herokuapp.com")
+  let socket = io.connect("interactnew.herokuapp.com")
 
   let password;
   let brackets;
@@ -377,11 +377,11 @@ function canSendRST() {
   }
 
   document.getElementById('home').onclick = function() {
-    window.open('http://vbcoding.tk');
+    window.location.replace('http://vbcoding.tk');
   }
 
   document.getElementById('updates').onclick = function() {
-    window.open('updates');
+    window.open('updates')
   }
 
   // Focus input when clicking on the message input's border
