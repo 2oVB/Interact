@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interact</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="Styles.css">
+  <link rel="stylesheet" href="Loading.css">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+<body id="body">
+
+  <ul class="pages">
+    <li id="chatpage" class="chat page">
+
+      <div>
+        <button id="logout" class="button-primary logout">logout</button>
+
+        <button id="home" class="tabs">Home</button>
+        <button id="updates" class="tabs">Updates</button>
+      </div>
+
+      <div class="chatArea">
+            <ul id="messages" class="messages"></ul> 
+            <input class="inputMessage" placeholder="Send a message..."/>
+      </div>
+      
+    </li>
+      
+    <li class="login page">
+ 
+    <div id="password" align="center">
+        <h3 class="passtitle">Admin password</h3>
+        <input id="passinput" class="passinput" placeholder="password...">
+    </div>
+
+      <div id="name" class="form">
+        <h3 class="title">Type in a name!</h3>
+        <input class="usernameInput" type="text" placeholder="username..."/>
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
