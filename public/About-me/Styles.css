@@ -1,0 +1,13 @@
+.title {
+  text-align:center;
+}
+
+.spacer {
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.Home {
+  width:20%;
+  height: 8%;
+}

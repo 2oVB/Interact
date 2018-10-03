@@ -384,6 +384,10 @@ function canSendRST() {
     window.location.replace('/updates');
   }
 
+  document.getElementById('about-me').onclick = function() {
+    window.location.replace('/About-me');
+  }
+
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {
     $inputMessage.focus();
