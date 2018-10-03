@@ -2,9 +2,10 @@ $(function() {
   let FADE_TIME = 150; // ms
   let TYPING_TIMER_LENGTH = 400; // ms
   let COLORS = [
-    '#e21400', '#91580f', '#f8a700', '#f78b00',
-    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+    '#91580f', '#f8a700', '#f78b00', 'A458EC',
+    '#58dc00', '#287b00', '#a8f07a', 'A8BFB9',
+    '#3b88eb', '#3824aa', '#a700ff', '#d300e7',
+    'C68AFF', 'DB1DB8', '855151', '07D8ED', '86A9AD'
   ];
 
   function getCookie(name) {
@@ -337,15 +338,21 @@ function canSendRST() {
 
   // Gets the color of a username through our hash function
   const getUsernameColor = (username) => {
-    // Compute hash code
-    let hash = 7;
-    for (let i = 0; i < username.length; i++) {
-       hash = username.charCodeAt(i) + (hash << 5) - hash;
-    }
-    // Calculate color
-    let index = Math.abs(hash % COLORS.length);
-    return COLORS[index];
+    if(username.includes('[OWNER') == true)  {
+      return '#D82600';
+    } else  if(username.includes('[MOD') == true) {
+      return '#00C8D8'
+    } else {
+        // Compute hash code
+        let hash = 7;
+        for (let i = 0; i < username.length; i++) {
+          hash = username.charCodeAt(i) + (hash << 5) - hash;
+        }
+        // Calculate color
+        let index = Math.abs(hash % COLORS.length);
+        return COLORS[index];
   }
+}
 
   // Keyboard events
 
