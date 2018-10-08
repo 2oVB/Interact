@@ -51,15 +51,19 @@ $(function() {
       socket.disconnect(true);
     }
 
-  this.setTimeout(function() {
-    alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
+    let bool4 = true;
+
+  this.setTimeout(() => {
+    if(bool4 == true)
+      alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
+      bool4 = false;
   }, 500)
 
-  setTimeout(function() {
+  setTimeout(() => {
      localStorage.banned = "false";
      log("you have been unbanned");
      
-      setTimeout(function() {
+      setTimeout(() =>  {
         window.location.reload();
       }, 500);
   }, 3600000);
@@ -71,13 +75,19 @@ $(function() {
     const check = () => {
       password = cleanInput($passInput.val().trim());
 
-      let fuckH = message.includes('fuck');
-      let gayH = message.includes('gay');
-      let dmH = message.includes('din mamma');
-      let niggerH = message.includes('nigger');
-      
+      let includes = message.includes('fuck');
+      let includes2 = message.includes('Fuck');
+      let includes3 = message.includes('kuk');
+      let includes4 = message.includes('Kuk');
+      let includes5 = message.includes('din mamma');
+      let includes6 = message.includes('Din mamma');
+      let includes7 = message.includes('nigger');
+      let includes8 = message.includes('Nigger');
+
       if(bool2 == true) {
-        if(fuckH == true || gayH == true || dmH == true || niggerH == true) {
+        if(includes == true || includes2 == true || includes3 == true || includes4 == true || includes5 == true || includes6 == true || includes7 == true || includes8 == true) {
+
+         this.alert("You have been banned for 2 hours!");
 
           message = "[" + username + " HAS BEEN BANNED FROM THE SERVER" + "]";
           //username = "[BAN HAMMER]";
@@ -227,7 +237,7 @@ let lastmsg = 'the sky is blue';
   }
 
 function canSendRST() {
-  setTimeout(function() {
+  setTimeout(() => {
     cansend = true;
   }, 3000);
 }
