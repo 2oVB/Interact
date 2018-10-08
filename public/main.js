@@ -8,13 +8,6 @@ $(function() {
     'C68AFF', 'DB1DB8', '855151', '07D8ED', '86A9AD'
   ];
 
-  function getCookie(name) {
-    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
- }
-
-  let image = document.createElement("img");
-  image.src = 'favicon.ico';
 
   // Initialize letiables
   let $window = $(window);
@@ -29,7 +22,6 @@ $(function() {
 
   // Prompt for setting a username
   let username;
-  let cookieUsername = getCookie('username');
   let message = '';
   let mod = false;
   let owner = false;
@@ -41,23 +33,36 @@ $(function() {
 
   let password;
   let brackets;
+
+  // document.getElementById('op').onclick = function() {
+  //   window.location = 'http://vbcoding.tk';
+  // }
    
+  // document.getElementById('ch').onclick = function() {
+  //   document.getElementById('landingpage').style.display = 'none';
+  //   document.getElementById('loginpage').style.display = 'inline';
+  // }
+
   //runs when the window loads
   window.onload = function() {
-    
-    if (Notification.permission !== "granted")
-    Notification.requestPermission();
-  else {
-    let notification = new Notification('Welcome!', {
-      icon: 'favicon.ico',
-      body: "Hey there! Want to check out some off my other stuff?",
-    });
 
-    notification.onclick = function () {
-      window.open("https://vbcoding.tk");      
-    };
+    if(localStorage.banned == "true") {
+      log("You are banned for 1h")
+      socket.disconnect(true);
+    }
 
-  }
+  this.setTimeout(function() {
+    alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
+  }, 500)
+
+  setTimeout(function() {
+     localStorage.banned = "false";
+     log("you have been unbanned");
+     
+      setTimeout(function() {
+        window.location.reload();
+      }, 500);
+  }, 3600000);
 
     let bool2 = true;
     let bool3 = true;
@@ -76,14 +81,15 @@ $(function() {
 
           message = "[" + username + " HAS BEEN BANNED FROM THE SERVER" + "]";
           //username = "[BAN HAMMER]";
-          cookieUsername = "[BAN HAMMER]";
+
+          let date = new Date();
 
           addChatMessage({
             username:"[BAN HAMMER]",
             message: username + " has been banned from the server"
           });
-
-          document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
+          this.localStorage.banned = "true";
+          this.localStorage.username = "";
           this.window.location.reload();
           console.log("you have been banned from the server!")
           socket.emit('new message', message);
@@ -92,16 +98,16 @@ $(function() {
       }
 
       if(bool3 == true) {
-        if(cookieUsername) {
+        if(localStorage.username) {
           $loginPage.fadeOut();
           $chatPage.show();
           $loginPage.off('click');
           $currentInput = $inputMessage.focus();
 
-          username = cookieUsername;
+          username = this.localStorage.username;
             
           // Tell the server your username
-          socket.emit('add user', cookieUsername);      
+          socket.emit('add user', username);      
           bool3 = false;   
         }
       }
@@ -142,7 +148,7 @@ $(function() {
             username = '[MOD] ' + username;
             socket.emit('add user', username);
 
-            document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
+            localStorage.username = username;
         } else if(password == 'OwnerVill123') {
           mod = true;
 
@@ -155,7 +161,7 @@ $(function() {
           username = '[OWNER] ' + username;
           socket.emit('add user', username);
 
-          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"    
+          localStorage.username = username;
         } else if(password == 'test') {
 
         } else if(brackets == true) {
@@ -167,8 +173,7 @@ $(function() {
           $loginPage.off('click');
           $currentInput = $inputMessage.focus();
 
-          //cookie thing test
-          document.cookie = "username" + "=" + username + ";" + "expires=Thu, 18 Dec 2100 12:00:00 UTC;"
+          localStorage.username = username;
         // Tell the server your username
         socket.emit('add user', username);   
         }
@@ -188,7 +193,7 @@ let lastmsg = 'the sky is blue';
       if (message && connected) {
           if(lastmsg && lastmsg !== message) {
           if(cansend == true) {
-            if(!cookieUsername) {
+            if(!username) {
               cansend = false;
               canSendRST();
               lastmsg = message;
@@ -206,7 +211,7 @@ let lastmsg = 'the sky is blue';
             lastmsg = message;
             $inputMessage.val('');
             addChatMessage({
-              username: cookieUsername,
+              username: username,
               message: message
             });
             // tell server to execute 'new message' and send along one parameter
@@ -228,10 +233,11 @@ function canSendRST() {
 }
 }
 
+
   // Log a message
     const log = (message, options) => {
-    let $el = $('<li>').addClass('log').attr('id', 'log').text(message);
-    addMessageElement($el, options);
+      let $el = $('<li>').addClass('log').attr('id', 'log').text(message);
+      addMessageElement($el, options);
   }
 
   // Adds the visual chat message to the message list
@@ -247,6 +253,10 @@ function canSendRST() {
     let $usernameDiv = $('<span class="username"/>')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
+
+  let $classDiv = $('<span class="class"/>')
+    .text("regular")
+    .css('color', "#FFFFF");
     let $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
 
@@ -256,6 +266,7 @@ function canSendRST() {
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
 
+    //addMessageElement($classDiv, options);
     addMessageElement($messageDiv, options);
   }
 
@@ -379,7 +390,7 @@ function canSendRST() {
   // Click events
 
   document.getElementById('logout').onclick = function() {
-    document.cookie = "username=; expires=Thu, 01 Jan 1200 00:00:00 UTC; path=/;";
+    localStorage.username = "";
     window.location.reload();
   }
 
