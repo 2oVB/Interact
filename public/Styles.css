@@ -181,6 +181,11 @@
    margin:25%;
  }
 
+ .class {
+   float:left;
+   padding-right:15px;
+ }
+
 .spacer {
   border: 2px solid black;
   border-radius: 5px;
