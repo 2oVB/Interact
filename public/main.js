@@ -128,7 +128,7 @@ $(function() {
 
           setTimeout(() => {
             window.location = "https://google.com";
-          }, 1200);
+          }, 1000);
           bool2 = false;
         }
       }
@@ -222,7 +222,7 @@ let userid = Math.floor(Math.random() * 10000);
 
             localStorage.username = username;
         } else if(password == 'Oobc83') {
-          //else if the password is 'Oobc83 add owner rank
+          //else if the password is ' Oobc83 add owner rank
           owner = true;
 
           //fade the chat page in
@@ -270,6 +270,7 @@ let userid = Math.floor(Math.random() * 10000);
         socket.emit('add user', username);   
         }
       }
+      $currentInput = $inputMessage.focus();
 }
 //option variables when sending a message
 let cansend = true;
