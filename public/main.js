@@ -44,6 +44,7 @@ $(function() {
   let bool2 = true;
   let bool3 = true;
   let bool4 = true;
+  let bool5 = true;
 
   //future UI javascript
   // document.getElementById('op').onclick = function() {
@@ -133,20 +134,33 @@ $(function() {
       }
 
       if(bool4 == true) {
-        if(mod == true) {
-            if(message == "!disconnect") {
-              log("you are being disconnected");
-              socket.disconnect(true);
-              bool4 = false;
-          }
-      } else if(owner == true) {
-        if(message == "!disconnect") {
-          log("you are being disconnected");
-          socket.disconnect(true);
+         if(message == "!info") {
+         addChatMessage({
+           username:"[INFO]",
+           message:"(info) - interactonline.tk is a interactive chat website where you can chat with your friends and get friends from all over the world"
+         })
+
+         addChatMessage({
+           username:"[INFO]",
+           message:"twitter:https://twitter.com/interactonline_"
+         })
           bool4 = false;
-      }
-    }
-  } 
+          }
+        }
+
+        if(bool5 == true) {
+          if(message == "!commands") {
+            addChatMessage({
+              username:"[COMMANDS]",
+              message:"1: !commands - commands for interactonline.tk"
+            })
+            addChatMessage({
+              username:"[COMMANDS]",
+              message:"2: !info - info about the server"
+            })
+            bool5 = false;
+          }
+        }
 
       //if u are already logged in fade the chat page in automaticly
       if(bool3 == true) {
@@ -191,9 +205,9 @@ let userid = Math.floor(Math.random() * 10000);
 
       brackets = username.includes('[');
 
-        //if the password is 'Vill123' add mod
+        //if the password is 'Vabc506' add mod
         if(username) {
-          if (password == 'Vill123') {
+          if (password == 'Vabc506') {
             mod = true;
             
             //fade the chat page in
@@ -207,8 +221,8 @@ let userid = Math.floor(Math.random() * 10000);
             socket.emit('add user', username);
 
             localStorage.username = username;
-        } else if(password == 'OwnerVill123') {
-          //else if the password is 'OwnerVill123' add owner rank
+        } else if(password == 'Oobc83') {
+          //else if the password is 'Oobc83 add owner rank
           owner = true;
 
           //fade the chat page in
@@ -219,6 +233,21 @@ let userid = Math.floor(Math.random() * 10000);
             
           // Tell the server your username
           username = '[OWNER] ' + username;
+          socket.emit('add user', username);
+
+          localStorage.username = username;
+        } else if(password == 'fas834') {
+          //else if the password is 'fas834 add owner rank
+          // owner = true;
+
+          //fade the chat page in
+          $loginPage.fadeOut();
+          $chatPage.show();
+          $loginPage.off('click');
+          $currentInput = $inputMessage.focus();
+            
+          // Tell the server your username
+          username = '[FEATURED] ' + username;
           socket.emit('add user', username);
 
           localStorage.username = username;
