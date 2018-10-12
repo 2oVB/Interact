@@ -59,6 +59,11 @@
  .login.page {
    background-image: url("background.png");
  }
+
+ .img {
+   width:15%;
+   height:25%;
+ }
  
  .login.page .form {
    height: 100px;

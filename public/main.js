@@ -1,4 +1,6 @@
 //main function
+
+console.log("starting");
 $(function() {
   let FADE_TIME = 150; // ms
   let TYPING_TIMER_LENGTH = 400; // ms
@@ -45,6 +47,7 @@ $(function() {
   let bool3 = true;
   let bool4 = true;
   let bool5 = true;
+  let bool6 = true;
 
   //future UI javascript
   // document.getElementById('op').onclick = function() {
@@ -139,6 +142,7 @@ $(function() {
            username:"[INFO]",
            message:"(info) - interactonline.tk is a interactive chat website where you can chat with your friends and get friends from all over the world"
          })
+         
 
          addChatMessage({
            username:"[INFO]",
@@ -159,6 +163,17 @@ $(function() {
               message:"2: !info - info about the server"
             })
             bool5 = false;
+          }
+        }
+
+        if(bool6 == true) {
+          if(message == '!img' ) {
+            let messages =document.getElementById('messages');
+            let imgElement = document.createElement('img');
+            imgElement.className = "img";
+            imgElement.src = './favicon.ico';
+            messages.append(imgElement);
+            bool6 = false;
           }
         }
 
@@ -237,7 +252,7 @@ let userid = Math.floor(Math.random() * 10000);
 
           localStorage.username = username;
         } else if(password == 'fas834') {
-          //else if the password is 'fas834 add owner rank
+          //else if the password is 'fas834 add featured rank
           // owner = true;
 
           //fade the chat page in
@@ -251,8 +266,6 @@ let userid = Math.floor(Math.random() * 10000);
           socket.emit('add user', username);
 
           localStorage.username = username;
-        } else if(password == 'test') {
-
         } else if(brackets == true) {
           //if the message includes [ do not login the player
             window.location.reload();

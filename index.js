@@ -1,10 +1,13 @@
 // Setup basic express server
 let express = require('express');
+let cors = require('cors')
 let app = express();
 let path = require('path');
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 let port = process.env.PORT || 3000;
+
+app.use(cors())
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -19,6 +22,9 @@ let numUsers = 0;
 
 io.on('connection', (socket) => {
     let addedUser = false;
+
+    let client_ip_address = socket.request.connection.remoteAddress;
+    console.log("New connection from: " + client_ip_address)
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', (data) => {
