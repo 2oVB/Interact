@@ -305,7 +305,7 @@ $(function () {
 
         youtuber = true;
 
-        username = '[YOUTUBER]' + username;
+        username = '[YOUTUBER] ' + username;
 
         localStorage.username = username;
         // Tell the server your username

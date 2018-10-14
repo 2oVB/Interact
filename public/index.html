@@ -1,59 +1,67 @@
-  <!doctype html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-      <title>Interact</title>
+<!doctype html>
+<html lang="en">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    <link rel="stylesheet" href="Styles.css">
-    <link rel="stylesheet" href="Loading.css">
-    <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-  </head>
-  <body id="body">
+<head>
+  <meta charset="UTF-8">
+  <title>Interact</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="Styles.css">
+  <link rel="stylesheet" href="Loading.css">
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body id="body">
 
   <!-- <div align="center" id="landingpage" class="landingpage">
           <button id="op" class="button">Other projects</button>
           <button id="ch" class="button">Chat</button>
     </div> -->
 
-    <ul id="pages" class="pages">
-        
-      <li id="chatpage" class="chat page">
+  <ul id="pages" class="pages">
 
-        <div>
-          <button id="logout" class="button-primary logout">logout</button>
+    <li id="chatpage" class="chat page">
 
-          <button id="home" class="tabs">Home</button>
-          <button id="updates" class="tabs">Updates</button>
-          <button id="about-me" class="tabs">About me</button>
-        </div>
+      <div>
+        <button id="logout" class="button-primary logout">logout</button>
 
-        <div class="chatArea">
-              <ul id="messages" class="messages"></ul> 
-              <input class="inputMessage" placeholder="Send a message..."/>
-        </div>
-        
-      </li>
-        
-      <li id="loginpage" class="login page">
-        <div align="center">
-          <h1 class="PL">Interactonline  </h1>
-          <h3 class="PL">Type in a username to continue!</h3>
-          <div class="spacer"></div>
-        </div>
-    
-            <div id="name" class="form">
-              <h3 class="title">Type in a name!</h3>
-              <input required="required" class="usernameInput" type="text" placeholder="username..."/>
-            </div>
-            <div class="pass-cls" id="password" align="center">
-                <h3 class="passtitle">Admin password</h3>
-                <input type="password" id="passinput" class="passinput" placeholder="(only for admins)">
-            </div>  
-      </li>
-    </ul>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/main.js"></script>
-  </body>
-  </html>
+        <button id="home" class="tabs">Home</button>
+        <button id="updates" class="tabs">Updates</button>
+        <button id="about-me" class="tabs">About me</button>
+      </div>
+
+      <div class="chatArea">
+        <ul id="messages" class="messages"></ul>
+        <input class="inputMessage" placeholder="Send a message..." />
+      </div>
+
+    </li>
+
+    <li id="loginpage" class="login page">
+      <div align="center">
+        <h1 class="PL">Interactonline </h1>
+        <h3 class="PL">Type in a username to continue!</h3>
+        <div class="spacer"></div>
+      </div>
+
+      <div id="name" class="form">
+        <h3 class="title">Type in a name!</h3>
+        <input required="required" class="usernameInput" type="text" placeholder="username..." />
+      </div>
+      <div class="pass-cls" id="password" align="center">
+        <h3 class="passtitle">Admin password</h3>
+        <input type="password" id="passinput" class="passinput" placeholder="(only for admins)">
+      </div>
+    </li>
+  </ul>
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main.js"></script>
+</body>
+<div style="padding: 5%" align="center">
+  <h1 class="ltstvideo">Latest video:</h1>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/aCp07I-NLp8" frameborder="0" allow="autoplay; encrypted-media"
+    allowfullscreen></iframe>
+</div>
+
+</html>
