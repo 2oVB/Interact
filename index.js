@@ -16,44 +16,54 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Chatroom
 
 let numUsers = 0;
+let client_ip_address;
+let usernamee;
 
-io.on('connection', (socket) => {
-    let addedUser = false;
+io.on('connection', (socket, username) => {
+  let addedUser = false;
 
-    let client_ip_address = socket.request.connection.remoteAddress;
-    console.log("New connection from: " + client_ip_address)
+  client_ip_address = socket.request.connection.remoteAddress;
 
-    // when the client emits 'new message', this listens and executes
-    socket.on('new message', (data) => {
-      // we tell the client to execute 'new message'
-      socket.broadcast.emit('new message', {
-        username: socket.username,
-        message: data
-      });
+
+
+  // when the client emits 'new message', this listens and executes
+  socket.on('new message', (data) => {
+    // we tell the client to execute 'new message'
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
+
+  // when the client emits 'add user', this listens and executes
+  socket.on('add user', (username) => {
+    if (addedUser) return;
+
+    numUsers++;
+    // we store the username in the socket session for this client
+    socket.username = username;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers
     });
 
-    // when the client emits 'add user', this listens and executes
-    socket.on('add user', (username) => {
-     if (addedUser) return;
+    usernamee = socket.username;
 
-        numUsers++;
-        // we store the username in the socket session for this client
-        socket.username = username;
-        addedUser = true;
-        socket.emit('login', {
-          numUsers: numUsers
-        });
-        // echo globally (all clients) that a person has connected
-        socket.broadcast.emit('user joined', {
-          username: socket.username,
-          numUsers: numUsers
-        });      
+    // echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
     });
+
+    socket.on('hello', (username, lastmsg) => {
+      socket.username = username;
+    })
+  });
 
   socket.on('close', () => {
-    socket.disconnect()
+    socket.disconnect();
   });
-  
+
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', () => {
@@ -69,10 +79,14 @@ io.on('connection', (socket) => {
     });
   });
 
+  console.log("user " + usernamee + " joined the server from: " + client_ip_address);
+
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {
       --numUsers;
+
+      console.log("user " + usernamee + " left the server from " + client_ip_address);
 
       // echo globally that this client has left
       socket.broadcast.emit('user left', {

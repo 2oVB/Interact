@@ -1,7 +1,7 @@
-//main function
+//main 
+console.log("main starting");
 
-console.log("starting");
-$(function() {
+$(function () {
   let FADE_TIME = 150; // ms
   let TYPING_TIMER_LENGTH = 400; // ms
 
@@ -24,7 +24,7 @@ $(function() {
   let $loginPage = $('.login.page'); // The login page
   let $chatPage = $('.chat.page'); // The chatroom page
   let socket = io();
-  
+
   //messaging variables
   let username;
   let message = '';
@@ -32,6 +32,7 @@ $(function() {
   //rank variables
   let mod = false;
   let owner = false;
+  let youtuber = false;
   let password;
 
   let connected = false;
@@ -48,19 +49,20 @@ $(function() {
   let bool4 = true;
   let bool5 = true;
   let bool6 = true;
+  let bool7 = true;
 
   //future UI javascript
   // document.getElementById('op').onclick = function() {
   //   window.location = 'http://vbcoding.tk';
   // }
-   
+
   // document.getElementById('ch').onclick = function() {
   //   document.getElementById('landingpage').style.display = 'none';
   //   document.getElementById('loginpage').style.display = 'inline';
   // }
 
   //when the window loads
-  window.onload = function() {
+  window.onload = function () {
 
     //disconnect if banned
     // if(localStorage.banned == "true") {
@@ -68,61 +70,64 @@ $(function() {
     //   socket.disconnect(true);
     // }
 
-  //alert welcome message if not banned
-  this.setTimeout( function() {
-    if(bool1 == true) {
-      if(!localStorage.banned || localStorage.banned == false) {
-        alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
-        bool1 = false;
-      }// } else {
-      //   //else alert that you are banned
-      //   alert("You are been banned for 1 hour!")
-      // }
-    }
-  }, 500);
 
-  //after an hour unban banned person
-  // setTimeout(() => {
-  //    localStorage.banned = "false";
-  //    log("you have been unbanned");
-     
-  //     setTimeout(() =>  {
-  //       window.location.reload();
-  //     }, 500);
-  // }, 3600000);
-    
+
+    //alert welcome message if not banned
+    this.setTimeout(function () {
+      if (bool1 == true) {
+        if (!localStorage.banned || localStorage.banned == false) {
+          alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
+          bool1 = false;
+        } // } else {
+        //   //else alert that you are banned
+        //   alert("You are been banned for 1 hour!")
+        // }
+      }
+    }, 500);
+
+    //after an hour unban banned person
+    // setTimeout(() => {
+    //    localStorage.banned = "false";
+    //    log("you have been unbanned");
+
+    //     setTimeout(() =>  {
+    //       window.location.reload();
+    //     }, 500);
+    // }, 3600000);
+
     //runs every frame
     const check = () => {
-      
-  let includes = message.includes('fuck');
-  let includes2 = message.includes('Fuck');
-  let includes3 = message.includes('kuk');
-  let includes4 = message.includes('Kuk');
-  let includes5 = message.includes('din mamma');
-  let includes6 = message.includes('Din mamma');
-  let includes7 = message.includes('nigger');
-  let includes8 = message.includes('Nigger');
-      
+
+      let includes = message.includes('fuck');
+      let includes2 = message.includes('Fuck');
+      let includes3 = message.includes('kuk');
+      let includes4 = message.includes('Kuk');
+      let includes5 = message.includes('din mamma');
+      let includes6 = message.includes('Din mamma');
+      let includes7 = message.includes('nigger');
+      let includes8 = message.includes('Nigger');
+      let includes9 = message.includes('retarded');
+      let includes10 = message.includes('Retarded');
+
       //sets the password
       password = cleanInput($passInput.val().trim());
 
       //checks the message
-      if(bool2 == true) {
-        if(includes == true || includes2 == true || includes3 == true || includes4 == true || includes5 == true || includes6 == true || includes7 == true || includes8 == true) {
+      if (bool2 == true) {
+        if (includes == true || includes2 == true || includes3 == true || includes4 == true || includes5 == true || includes6 == true || includes7 == true || includes8 == true || includes9 == true || includes10 == true) {
 
           //ban the player if the message is not allowed
-        //  this.alert("You have been banned for 2 hours!");
+          this.alert("You have been kicked");
 
-          message = "[" + username + " HAS BEEN BANNED FROM THE SERVER" + "]";
+          message = +username + " has been kicked out off the server";
 
           addChatMessage({
-            username:"[BAN HAMMER]",
+            username: "that ban guy",
             message: username + " has been banned from the server"
           });
 
 
           //sets the banned state to true and the username to nothing
-          this.localStorage.banned = "true";
           this.localStorage.username = "";
           // this.window.location.reload();
           document.write("You have been kicked out off the interact server. reason:bad language. message:" + lastmsg);
@@ -136,68 +141,90 @@ $(function() {
         }
       }
 
-      if(bool4 == true) {
-         if(message == "!info") {
-         addChatMessage({
-           username:"[INFO]",
-           message:"(info) - interactonline.tk is a interactive chat website where you can chat with your friends and get friends from all over the world"
-         })
-         
+      if (bool7 == true) {
+        if (message == '!hello') {
+          addChatMessage({
+            username: "Hello world",
+            message: "Hello world"
+          });
 
-         addChatMessage({
-           username:"[INFO]",
-           message:"twitter:https://twitter.com/interactonline_"
-         })
+          message = "Hello world";
+          username = "Hello world";
+
+          socket.emit('hello', username, lastusername);
+          socket.emit('new message', message);
+
+          bool7 = false;
+        }
+      }
+
+      if (bool4 == true) {
+        if (message == "!info") {
+          addChatMessage({
+            username: "[INFO]",
+            message: "(info) - interactonline.tk is a interactive chat website where you can chat with your friends and get friends from all over the world"
+          })
+
+
+          addChatMessage({
+            username: "[INFO]",
+            message: "twitter:https://twitter.com/interactonline_"
+          })
           bool4 = false;
-          }
         }
+      }
 
-        if(bool5 == true) {
-          if(message == "!commands") {
-            addChatMessage({
-              username:"[COMMANDS]",
-              message:"1: !commands - commands for interactonline.tk"
-            })
-            addChatMessage({
-              username:"[COMMANDS]",
-              message:"2: !info - info about the server"
-            })
-            bool5 = false;
-          }
+      if (bool5 == true) {
+        if (message == "!commands") {
+          addChatMessage({
+            username: "[COMMANDS]",
+            message: "1: !commands - commands for interactonline.tk"
+          })
+          addChatMessage({
+            username: "[COMMANDS]",
+            message: "2: !info - info about the server"
+          })
+          bool5 = false;
         }
+      }
 
-        if(bool6 == true) {
-          if(message == '!img' ) {
-            let messages =document.getElementById('messages');
-            let imgElement = document.createElement('img');
-            imgElement.className = "img";
-            imgElement.src = './favicon.ico';
-            messages.append(imgElement);
-            bool6 = false;
-          }
+      if (bool6 == true) {
+        if (message.includes('!img') == true) {
+          let url = subStrAfterChars(message, '=', 'b')
+          console.log(url);
+          document.location.replace(url);
+
+          let messages = document.getElementById('messages');
+          let imgElement = document.createElement('img');
+          imgElement.className = "img";
+          imgElement.src = url;
+          messages.append(imgElement);
+
+          bool6 = false;
         }
+      }
 
       //if u are already logged in fade the chat page in automaticly
-      if(bool3 == true) {
-        if(localStorage.username) {
+      if (bool3 == true) {
+        if (localStorage.username) {
           $loginPage.fadeOut();
           $chatPage.show();
           $loginPage.off('click');
           $currentInput = $inputMessage.focus();
 
           username = this.localStorage.username;
-            
+
           // Tell the server your username
-          socket.emit('add user', username);      
-          bool3 = false;   
+          socket.emit('add user', username);
+          bool3 = false;
         }
       }
-      }
-     
-      //run the check function every frame
-    setInterval(check, 1);
-  
     }
+
+    //run the check function every frame
+    setInterval(check, 1);
+
+  }
 
   //function to log joined message 
   const addParticipantsMessage = (data) => {
@@ -210,100 +237,113 @@ $(function() {
     }
     log(msgL);
   }
-let userid = Math.floor(Math.random() * 10000);
+  let userid = Math.floor(Math.random() * 10000);
 
   //set the username
   const setUsername = () => {
 
     //sets the varible username
-      username = cleanInput($usernameInput.val().trim());
+    username = cleanInput($usernameInput.val().trim());
 
-      brackets = username.includes('[');
+    brackets = username.includes('[');
 
-        //if the password is 'Vabc506' add mod
-        if(username) {
-          if (password == 'Vabc506') {
-            mod = true;
-            
-            //fade the chat page in
-            $loginPage.fadeOut();
-            $chatPage.show();
-            $loginPage.off('click');
-            $currentInput = $inputMessage.focus();
-              
-            // Tell the server your username
-            username = '[MOD] ' + username;
-            socket.emit('add user', username);
+    //if the password is 'Vabc506' add mod
+    if (username) {
+      if (password == 'Vabc506') {
+        mod = true;
 
-            localStorage.username = username;
-        } else if(password == 'Oobc83') {
-          //else if the password is ' Oobc83 add owner rank
-          owner = true;
+        //fade the chat page in
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
 
-          //fade the chat page in
-          $loginPage.fadeOut();
-          $chatPage.show();
-          $loginPage.off('click');
-          $currentInput = $inputMessage.focus();
-            
-          // Tell the server your username
-          username = '[OWNER] ' + username;
-          socket.emit('add user', username);
-
-          localStorage.username = username;
-        } else if(password == 'fas834') {
-          //else if the password is 'fas834 add featured rank
-          // owner = true;
-
-          //fade the chat page in
-          $loginPage.fadeOut();
-          $chatPage.show();
-          $loginPage.off('click');
-          $currentInput = $inputMessage.focus();
-            
-          // Tell the server your username
-          username = '[FEATURED] ' + username;
-          socket.emit('add user', username);
-
-          localStorage.username = username;
-        } else if(brackets == true) {
-          //if the message includes [ do not login the player
-            window.location.reload();
-            //else just send the message
-        } else {
-          //else just log in the player normaly
-
-          $loginPage.fadeOut();
-          $chatPage.show();
-          $loginPage.off('click');
-          $currentInput = $inputMessage.focus();
-
-          localStorage.username = username;
         // Tell the server your username
-        socket.emit('add user', username);   
-        }
+        username = '[MOD] ' + username;
+        socket.emit('add user', username);
+
+        localStorage.username = username;
+      } else if (password == 'Oobc83') {
+        //else if the password is ' Oobc83 add owner rank
+        owner = true;
+
+        //fade the chat page in
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+
+        // Tell the server your username
+        username = '[OWNER] ' + username;
+        socket.emit('add user', username);
+
+        localStorage.username = username;
+      } else if (password == 'fas834') {
+        //else if the password is 'fas834 add featured rank
+        // owner = true;
+
+        //fade the chat page in
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+
+        // Tell the server your username
+        username = '[FEATURED] ' + username;
+        socket.emit('add user', username);
+
+        localStorage.username = username;
+      } else if (brackets == true) {
+        //if the message includes [ do not login the player
+        window.location.reload();
+        //else just send the message
+      } else if (password == '.lzxwi') {
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+
+        youtuber = true;
+
+        username = '[YOUTUBER]' + username;
+
+        localStorage.username = username;
+        // Tell the server your username
+        socket.emit('add user', username);
+      } else {
+        //else just log in the player normaly
+
+        $loginPage.fadeOut();
+        $chatPage.show();
+        $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+
+        localStorage.username = username;
+        // Tell the server your username
+        socket.emit('add user', username);
       }
-      $currentInput = $inputMessage.focus();
-}
-//option variables when sending a message
-let cansend = true;
-let lastmsg = 'the sky is blue';
+    }
+    $currentInput = $inputMessage.focus();
+  }
+  //option variables when sending a message
+  let cansend = true;
+  let lastmsg = 'the sky is blue';
   //send a chat message
   const sendMessage = () => {
     message = $inputMessage.val();
 
     // Prevent markup from being injected into the message
     message = cleanInput(message);
-    if(message.length >= 100) {
+    if (message.length >= 100) {
       log("You cant send a message longer than 100 letters!");
     } else {
       //if the client is connected
       if (message && connected) {
         //if the messgae is not the same as the newest message
-        if(lastmsg && lastmsg !== message) {
+        if (lastmsg && lastmsg !== message) {
           //if the delay of 3 seconds has run out
-          if(cansend == true) {
-            if(!username) {
+          if (cansend == true) {
+            if (!username) {
               cansend = false;
               canSendRST();
               lastmsg = message;
@@ -314,42 +354,42 @@ let lastmsg = 'the sky is blue';
               });
               console.log("test")
               // tell server to execute 'new message' and send along one parameter
-              socket.emit('new message', message);      
-          }  else {
+              socket.emit('new message', message);
+            } else {
+              cansend = false;
+              canSendRST();
+              lastmsg = message;
+              $inputMessage.val('');
+              addChatMessage({
+                username: username,
+                message: message
+              });
+              // tell server to execute 'new message' and send along one parameter
+              socket.emit('new message', message);
+            }
+          } else if (lastmsg == message) {
             cansend = false;
-            canSendRST();
-            lastmsg = message;
-            $inputMessage.val('');
-            addChatMessage({
-              username: username,
-              message: message
-            });
-            // tell server to execute 'new message' and send along one parameter
-            socket.emit('new message', message);            
+          } else {
+            //if the timer of 3 seconds havent ran out log that you have to wait 3 seconds
+            log("Wait 3 seconds before sending!")
           }
-  } else if(lastmsg == message) {
-        cansend = false;
-  } else {
-    //if the timer of 3 seconds havent ran out log that you have to wait 3 seconds
-    log("Wait 3 seconds before sending!")
-  }
-}
+        }
+      }
+    }
+
+    //function to set cansend = true
+    function canSendRST() {
+      setTimeout(() => {
+        cansend = true;
+      }, 3000);
     }
   }
 
-//function to set cansend = true
-function canSendRST() {
-  setTimeout(() => {
-    cansend = true;
-  }, 3000);
-}
-}
-
 
   // Log a message
-    const log = (message, options) => {
-      let $el = $('<li>').addClass('log').attr('id', 'log').text(message);
-      addMessageElement($el, options);
+  const log = (message, options) => {
+    let $el = $('<li>').addClass('log').attr('id', 'log').text(message);
+    addMessageElement($el, options);
   }
 
   // Adds the visual chat message to the message list
@@ -366,9 +406,9 @@ function canSendRST() {
       .text(data.username)
       .css('color', getUsernameColor(data.username));
 
-  let $classDiv = $('<span class="class"/>')
-    .text(localStorage.class)
-    .css('color', "#FFFFF");
+    let $classDiv = $('<span class="class"/>')
+      .text(localStorage.class)
+      .css('color', "#FFFFF");
     let $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
 
@@ -461,21 +501,21 @@ function canSendRST() {
 
   // Gets the color of a username through our hash function
   const getUsernameColor = (username) => {
-    if(username.includes('[OWNER') == true)  {
+    if (username.includes('[OWNER') == true) {
       return '#D82600';
-    } else  if(username.includes('[MOD') == true) {
+    } else if (username.includes('[MOD') == true) {
       return '#00C8D8'
     } else {
-        // Compute hash code
-        let hash = 7;
-        for (let i = 0; i < username.length; i++) {
-          hash = username.charCodeAt(i) + (hash << 5) - hash;
-        }
-        // Calculate color
-        let index = Math.abs(hash % COLORS.length);
-        return COLORS[index];
+      // Compute hash code
+      let hash = 7;
+      for (let i = 0; i < username.length; i++) {
+        hash = username.charCodeAt(i) + (hash << 5) - hash;
+      }
+      // Calculate color
+      let index = Math.abs(hash % COLORS.length);
+      return COLORS[index];
+    }
   }
-}
 
   // Keyboard events
 
@@ -497,24 +537,24 @@ function canSendRST() {
     updateTyping();
   });
 
-  
+
 
   // Click events
 
-  document.getElementById('logout').onclick = function() {
+  document.getElementById('logout').onclick = function () {
     localStorage.username = "";
     window.location.reload();
   }
 
-  document.getElementById('home').onclick = function() {
+  document.getElementById('home').onclick = function () {
     window.location = 'http://vbcoding.tk';
   }
 
-  document.getElementById('updates').onclick = function() {
+  document.getElementById('updates').onclick = function () {
     window.location.replace('/updates');
   }
 
-  document.getElementById('about-me').onclick = function() {
+  document.getElementById('about-me').onclick = function () {
     window.location.replace('/About-me');
   }
 
@@ -557,7 +597,7 @@ function canSendRST() {
   // Whenever the server emits 'typing', show the typing message
   socket.on('typing', (data) => {
     addChatTyping(">" + data);
-});
+  });
 
   // Whenever the server emits 'stop typing', kill the typing message
   socket.on('stop typing', (data) => {
@@ -580,5 +620,3 @@ function canSendRST() {
   });
 
 });
-
-
