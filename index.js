@@ -1,5 +1,5 @@
 // Setup basic express server
-let express = require('express');
+import express from './express';
 let app = express();
 let path = require('path');
 let server = require('http').createServer(app);
