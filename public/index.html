@@ -3,12 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Interact</title>
+  <title>Interactonline | Login</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <link rel="stylesheet" href="Styles.css">
   <link rel="stylesheet" href="Loading.css">
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
 </head>
 
 <body id="body">
@@ -22,23 +22,41 @@
 
     <li id="chatpage" class="chat page">
 
-      <div>
-        <button id="logout" class="button-primary logout">logout</button>
+      <!-- <div>
+        <button id="logout" class="button-primary logout" href="#logout">logout</button>
 
         <button id="home" class="tabs">Home</button>
         <button id="updates" class="tabs">Updates</button>
         <button id="about-me" class="tabs">About me</button>
-      </div>
+      </div> -->
+      
+  <header>
+    <div class="bar-container">
+      <ul>
+        <li href="#" id="logout">Logout</li>
+        <li href="#" id="Commands">Commands</li>
+        <li href="#" id="Clear">Clear</li>
+      </ul>
+    </div>
+  </header>
 
-      <div class="chatArea">
+      <div id="chatArea" class="chatArea">
+        <div class="spacer"></div>
+        <!-- <img id="img" class="img"> -->
         <ul id="messages" class="messages"></ul>
-        <input class="inputMessage" placeholder="Send a message..." />
+        <input id="inputmessage" class="inputMessage" placeholder="Send a message..." />
       </div>
 
     </li>
 
     <li id="loginpage" class="login page">
-      <div align="center">
+        <img style="
+        align-content: top-right;
+        width:10%;
+        height:12%;
+        cursor: pointer;
+        " id="settings" src="IMG/Settings.png">
+        <div align="center">
         <h1 class="PL">Interactonline </h1>
         <h3 class="PL">Type in a username to continue!</h3>
         <div class="spacer"></div>
@@ -46,11 +64,11 @@
 
       <div id="name" class="form">
         <h3 class="title">Type in a name!</h3>
-        <input required="required" class="usernameInput" type="text" placeholder="username..." />
+        <input type="username" class="usernameInput" type="text" placeholder="username..." />
       </div>
       <div class="pass-cls" id="password" align="center">
-        <h3 class="passtitle">Admin password</h3>
-        <input type="password" id="passinput" class="passinput" placeholder="(only for admins)">
+        <h3 id="passtitle" class="passtitle">Admin password</h3>
+        <input type="pin" id="passinput" class="passinput" placeholder="(only for admins)">
       </div>
     </li>
   </ul>
@@ -58,10 +76,11 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="/main.js"></script>
 </body>
-<div style="padding: 5%" align="center">
+<!-- <div style="padding: 5%" align="center">
   <h1 class="ltstvideo">Latest video:</h1>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/aCp07I-NLp8" frameborder="0" allow="autoplay; encrypted-media"
     allowfullscreen></iframe>
-</div>
+
+</div> -->
 
 </html>

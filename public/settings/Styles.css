@@ -1,0 +1,33 @@
+body {
+  margin:0%;
+  padding:0%;
+}
+
+header {
+  width:100%;
+  font-size:115%;
+  height:10%;
+  background-color:black;
+}
+
+header li:hover {
+  font-size:220%;
+  cursor:pointer;
+}
+
+header ul li {
+  display:inline-block;
+  list-style-type: none;
+  padding:20px;
+  margin:-1% 30px;
+  color:white;
+  font-size:200%;
+}
+
+input {
+   -ms-transform: scale(5); /* IE */
+  -moz-transform: scale(5);  /* FF */
+  -webkit-transform: scale(5); /* Safari and Chrome */
+  -o-transform: scale(5); /* Opera */
+  margin:5% 5%;
+}

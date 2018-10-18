@@ -1,10 +1,13 @@
 // Setup basic express server
 let express = require('express');
+let cors = require('cors');
 let app = express();
 let path = require('path');
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 let port = process.env.PORT || 3000;
+
+app.use(cors());
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -79,8 +82,13 @@ io.on('connection', (socket, username) => {
     });
   });
 
-  console.log("user " + usernamee + " joined the server from: " + client_ip_address);
-
+  setTimeout(function () {
+    if(usernamee) {
+     console.log("user " + usernamee + " joined the server from: " + client_ip_address);
+    } else {
+      console.log("a non-logged in user joined!")
+    }
+  }, 2000);
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     if (addedUser) {

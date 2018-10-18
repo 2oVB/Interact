@@ -1,9 +1,22 @@
-//main 
-console.log("main starting");
-
 $(function () {
   let FADE_TIME = 150; // ms
   let TYPING_TIMER_LENGTH = 400; // ms
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+  }
 
   //username colors
   let COLORS = [
@@ -13,7 +26,7 @@ $(function () {
     'C68AFF', 'DB1DB8', '855151', '07D8ED', '86A9AD'
   ];
 
-  // Initialize variables
+  // elements
   let $window = $(window);
   let $usernameInput = $('.usernameInput'); // Input for username let $usernameInput = $('.usernameInput'); // Input for username
   let $messages = $('.messages'); // Messages area
@@ -25,24 +38,24 @@ $(function () {
   let $chatPage = $('.chat.page'); // The chatroom page
   let socket = io();
 
-  //messaging variables
+  //user info
   let username;
   let message = '';
+  let password;
 
-  //rank variables
+  //ranks
   let mod = false;
   let owner = false;
   let youtuber = false;
-  let password;
 
   let connected = false;
   let typing = false;
   let lastTypingTime;
 
-  //includes variables
-  let brackets;
+  //checks username
+  let ifBrackets;
 
-  //run 1 time variables
+  //run 1 time
   let bool1 = true;
   let bool2 = true;
   let bool3 = true;
@@ -51,51 +64,27 @@ $(function () {
   let bool6 = true;
   let bool7 = true;
 
-  //future UI javascript
-  // document.getElementById('op').onclick = function() {
-  //   window.location = 'http://vbcoding.tk';
-  // }
-
-  // document.getElementById('ch').onclick = function() {
-  //   document.getElementById('landingpage').style.display = 'none';
-  //   document.getElementById('loginpage').style.display = 'inline';
-  // }
+let api = getCookie('api')
 
   //when the window loads
   window.onload = function () {
 
-    //disconnect if banned
-    // if(localStorage.banned == "true") {
-    //   log("You are banned for 1h")
-    //   socket.disconnect(true);
-    // }
-
-
-
-    //alert welcome message if not banned
+    if(!api || api == 'false') {
+      document.getElementById('password').style.display = 'none';
+      document.getElementById('passtitle').style.display = 'none';
+    } else if(api == 'true') {
+      console.log("test")
+    }
+    
+    //alert welcome messag
     this.setTimeout(function () {
       if (bool1 == true) {
-        if (!localStorage.banned || localStorage.banned == false) {
-          alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
-          bool1 = false;
-        } // } else {
-        //   //else alert that you are banned
-        //   alert("You are been banned for 1 hour!")
-        // }
+        // alert('Hello and welcome to interact, if u want to see some off my other stuff go to vbcoding.tk. happy chatting!')
+        bool1 = false;
       }
     }, 500);
 
-    //after an hour unban banned person
-    // setTimeout(() => {
-    //    localStorage.banned = "false";
-    //    log("you have been unbanned");
-
-    //     setTimeout(() =>  {
-    //       window.location.reload();
-    //     }, 500);
-    // }, 3600000);
-
-    //runs every frame
+    //checks the message
     const check = () => {
 
       let includes = message.includes('fuck');
@@ -141,6 +130,8 @@ $(function () {
         }
       }
 
+
+
       if (bool7 == true) {
         if (message == '!hello') {
           addChatMessage({
@@ -162,10 +153,11 @@ $(function () {
         if (message == "!info") {
           addChatMessage({
             username: "[INFO]",
+            message: "test",
             message: "(info) - interactonline.tk is a interactive chat website where you can chat with your friends and get friends from all over the world"
           })
 
-
+ 
           addChatMessage({
             username: "[INFO]",
             message: "twitter:https://twitter.com/interactonline_"
@@ -188,25 +180,33 @@ $(function () {
         }
       }
 
-      if (bool6 == true) {
-        if (message.includes('!img') == true) {
-          let url = subStrAfterChars(message, '=', 'b')
-          console.log(url);
-          document.location.replace(url);
+      // if (bool6 == true) {
+      //   if (message.includes('!img') == true) {
+      //     let url = subStrAfterChars(message, ' ', 'b')
 
-          let messages = document.getElementById('messages');
-          let imgElement = document.createElement('img');
-          imgElement.className = "img";
-          imgElement.src = url;
-          messages.append(imgElement);
+      //     // canAppend = true;
 
-          bool6 = false;
-        }
-      }
+      //     let messages = document.getElementById('messages');
+      //     let imgElement = document.createElement('img');
+      //     imgElement.className = "img";
+      //     imgElement.id = 'img'
+      //     imgElement.src = url;
+
+      //     if(canAppend == true) {
+      //     messages.append(imgElement);
+      //     canAppend = false;
+      //     }
+
+      //     fuck();
+      //     bool6 = false;
+      //   }
+      // }
+
 
       //if u are already logged in fade the chat page in automaticly
       if (bool3 == true) {
         if (localStorage.username) {
+          document.title = 'interactonline | Chat'
           $loginPage.fadeOut();
           $chatPage.show();
           $loginPage.off('click');
@@ -237,15 +237,16 @@ $(function () {
     }
     log(msgL);
   }
-  let userid = Math.floor(Math.random() * 10000);
 
   //set the username
   const setUsername = () => {
 
+
+
     //sets the varible username
     username = cleanInput($usernameInput.val().trim());
 
-    brackets = username.includes('[');
+    ifBrackets = username.includes('[');
 
     //if the password is 'Vabc506' add mod
     if (username) {
@@ -293,7 +294,7 @@ $(function () {
         socket.emit('add user', username);
 
         localStorage.username = username;
-      } else if (brackets == true) {
+      } else if (ifBrackets == true) {
         //if the message includes [ do not login the player
         window.location.reload();
         //else just send the message
@@ -334,48 +335,50 @@ $(function () {
 
     // Prevent markup from being injected into the message
     message = cleanInput(message);
-    if (message.length >= 100) {
-      log("You cant send a message longer than 100 letters!");
-    } else {
-      //if the client is connected
-      if (message && connected) {
-        //if the messgae is not the same as the newest message
-        if (lastmsg && lastmsg !== message) {
-          //if the delay of 3 seconds has run out
-          if (cansend == true) {
-            if (!username) {
-              cansend = false;
-              canSendRST();
-              lastmsg = message;
-              $inputMessage.val('');
-              addChatMessage({
-                username: username,
-                message: message
-              });
-              console.log("test")
-              // tell server to execute 'new message' and send along one parameter
-              socket.emit('new message', message);
-            } else {
-              cansend = false;
-              canSendRST();
-              lastmsg = message;
-              $inputMessage.val('');
-              addChatMessage({
-                username: username,
-                message: message
-              });
-              // tell server to execute 'new message' and send along one parameter
-              socket.emit('new message', message);
-            }
-          } else if (lastmsg == message) {
+    // if (message.length >= 100) {
+    //   log("You cant send a message longer than 100 letters!");
+    // } else {
+    //if the client is connected
+    if (message && connected) {
+
+
+      //if the messgae is not the same as the newest message
+      if (lastmsg && lastmsg !== message) {
+        //if the delay of 3 seconds has run out
+        if (cansend == true) {
+          if (!username) {
             cansend = false;
+            canSendRST();
+            lastmsg = message;
+            $inputMessage.val('');
+            addChatMessage({
+              username: username,
+              message: message
+            });
+            console.log("test")
+            // tell server to execute 'new message' and send along one parameter
+            socket.emit('new message', message);
           } else {
-            //if the timer of 3 seconds havent ran out log that you have to wait 3 seconds
-            log("Wait 3 seconds before sending!")
+            cansend = false;
+            canSendRST();
+            lastmsg = message;
+            $inputMessage.val('');
+            addChatMessage({
+              username: username,
+              message: message
+            });
+            // tell server to execute 'new message' and send along one parameter
+            socket.emit('new message', message);
           }
+        } else if (lastmsg == message) {
+          cansend = false;
+        } else {
+          //if the timer of 3 seconds havent ran out log that you have to wait 3 seconds
+          log("Wait 3 seconds before sending!")
         }
       }
     }
+    // } 
 
     //function to set cansend = true
     function canSendRST() {
@@ -528,6 +531,7 @@ $(function () {
         socket.emit('stop typing');
         typing = false;
       } else {
+        document.title = 'interactonline | Chat'
         setUsername();
       }
     }
@@ -543,20 +547,38 @@ $(function () {
 
   document.getElementById('logout').onclick = function () {
     localStorage.username = "";
+    document.getElementById('chatpage').style.display = 'none';
+    document.getElementById('loginpage').style.display = 'inline';
+    username = cleanInput($usernameInput.val().trim());
+    
+  }
+
+  document.getElementById('settings').onclick = function() {
+    document.location.replace('http://interactnew.herokuapp.com/settings/');
+  }
+
+  document.getElementById('Commands').onclick = function () {
+    addChatMessage({
+      username: "[COMMANDS]",
+      message: "1: !commands - commands for interactonline.tk"
+    });
+    addChatMessage({
+      username: "[COMMANDS]",
+      message: "2: !info - info about the server"
+    });
+  }
+
+  document.getElementById('Clear').onclick = function () {
     window.location.reload();
-  }
+  } 
 
-  document.getElementById('home').onclick = function () {
-    window.location = 'http://vbcoding.tk';
-  }
+  // document.getElementById('updates').onclick = function () {
+  //   window.location.replace('/updates');
+  // }
 
-  document.getElementById('updates').onclick = function () {
-    window.location.replace('/updates');
-  }
-
-  document.getElementById('about-me').onclick = function () {
-    window.location.replace('/About-me');
-  }
+  // document.getElementById('about-me').onclick = function () {
+  //   window.location.replace('/About-me');
+  // }
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(() => {
