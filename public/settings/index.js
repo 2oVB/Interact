@@ -21,7 +21,7 @@ window.onload = function() {
   if(!api2 || api2 == 'false') {
     document.getElementById('api').checked = false;
   } else if(api2 == 'true') {
-    document.getElementById('api').checked = true;
+    document.getElementById('api').checked = false;
   }
 }
 

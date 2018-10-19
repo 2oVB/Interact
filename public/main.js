@@ -541,6 +541,11 @@ let api = getCookie('api')
     updateTyping();
   });
 
+  document.getElementById('join').onclick = function() {
+    document.title = 'interactonline | Chat'
+    setUsername();
+  }
+
 
 
   // Click events
