@@ -1,7 +1,10 @@
+//coded by vilhelm backander 
+//open source provided by vilhelm backander
 $(function () {
   let FADE_TIME = 150; // ms
   let TYPING_TIMER_LENGTH = 400; // ms
 
+  //function to get cookie
   function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -17,6 +20,9 @@ $(function () {
     }
     return "";
   }
+
+  
+  
 
   //username colors
   let COLORS = [
@@ -38,12 +44,11 @@ $(function () {
   let $chatPage = $('.chat.page'); // The chatroom page
   let socket = io();
 
-  //user info
   let username;
   let message = '';
   let password;
+  let profileIcon;
 
-  //ranks
   let mod = false;
   let owner = false;
   let youtuber = false;
@@ -52,10 +57,8 @@ $(function () {
   let typing = false;
   let lastTypingTime;
 
-  //checks username
   let ifBrackets;
 
-  //run 1 time
   let bool1 = true;
   let bool2 = true;
   let bool3 = true;
@@ -63,11 +66,25 @@ $(function () {
   let bool5 = true;
   let bool6 = true;
   let bool7 = true;
+  let bool8 = true;
 
-let api = getCookie('api')
+  //get api(Admin password input visibility) cookie
+  let api = getCookie('api')
 
-  //when the window loads
   window.onload = function () {
+
+    if(profileIcon) {
+      document.getElementById('profile-icon').src = profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else if(localStorage.profileIcon) {
+      profileIcon = localStorage.profileIcon;
+      document.getElementById('profile-icon').src = localStorage.profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else {  
+      document.getElementById('profile-icon').src = 'IMG/placeholder.png';
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    }
+  
 
     if(!api || api == 'false') {
       document.getElementById('password').style.display = 'none';
@@ -84,7 +101,6 @@ let api = getCookie('api')
       }
     }, 500);
 
-    //checks the message
     const check = () => {
 
       let includes = message.includes('fuck');
@@ -101,7 +117,7 @@ let api = getCookie('api')
       //sets the password
       password = cleanInput($passInput.val().trim());
 
-      //checks the message
+      //if the message is not allowed kick the user
       if (bool2 == true) {
         if (includes == true || includes2 == true || includes3 == true || includes4 == true || includes5 == true || includes6 == true || includes7 == true || includes8 == true || includes9 == true || includes10 == true) {
 
@@ -130,7 +146,7 @@ let api = getCookie('api')
         }
       }
 
-
+      //commands
 
       if (bool7 == true) {
         if (message == '!hello') {
@@ -223,8 +239,37 @@ let api = getCookie('api')
 
     //run the check function every frame
     setInterval(check, 1);
-
+  
   }
+  
+
+  let input = document.getElementById('profile_pic');
+  let curFiles;
+  let file;
+
+  input.addEventListener('change', updateImageDisplay);
+
+  function updateImageDisplay() {
+    // console.log("Test");
+
+    curFiles = input.files[0];
+    profileIcon = window.URL.createObjectURL(curFiles);
+ 
+
+
+    if(profileIcon) {
+      document.getElementById('profile-icon').src = profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else if(localStorage.profileIcon) {
+      profileIcon = localStorage.profileIcon;
+      document.getElementById('profile-icon').src = localStorage.profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else {  
+      document.getElementById('profile-icon').src = 'IMG/placeholder.png';
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    }
+  }
+
 
   //function to log joined message 
   const addParticipantsMessage = (data) => {
@@ -241,7 +286,18 @@ let api = getCookie('api')
   //set the username
   const setUsername = () => {
 
-
+    if(profileIcon) {
+      document.getElementById('profile-icon').src = profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else if(localStorage.profileIcon) {
+      profileIcon = localStorage.profileIcon;
+      document.getElementById('profile-icon').src = localstorage.profileIcon;
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    } else {  
+      document.getElementById('profile-icon').src = 'IMG/placeholder.png';
+      localStorage.profileIcon = document.getElementById('profile-icon').src;
+    }
+  
 
     //sets the varible username
     username = cleanInput($usernameInput.val().trim());
@@ -264,8 +320,11 @@ let api = getCookie('api')
         socket.emit('add user', username);
 
         localStorage.username = username;
+
+        //ranks
+
+        //owner rank
       } else if (password == 'Oobc83') {
-        //else if the password is ' Oobc83 add owner rank
         owner = true;
 
         //fade the chat page in
@@ -279,9 +338,8 @@ let api = getCookie('api')
         socket.emit('add user', username);
 
         localStorage.username = username;
+        //featured rank
       } else if (password == 'fas834') {
-        //else if the password is 'fas834 add featured rank
-        // owner = true;
 
         //fade the chat page in
         $loginPage.fadeOut();
@@ -294,10 +352,11 @@ let api = getCookie('api')
         socket.emit('add user', username);
 
         localStorage.username = username;
+        //if the message includes brackets reload the page
       } else if (ifBrackets == true) {
-        //if the message includes [ do not login the player
         window.location.reload();
-        //else just send the message
+        
+        //vip rank
       } else if (password == '.lzxwi') {
         $loginPage.fadeOut();
         $chatPage.show();
@@ -311,9 +370,9 @@ let api = getCookie('api')
         localStorage.username = username;
         // Tell the server your username
         socket.emit('add user', username);
-      } else {
-        //else just log in the player normaly
 
+        //default rank
+      } else {
         $loginPage.fadeOut();
         $chatPage.show();
         $loginPage.off('click');
@@ -380,7 +439,8 @@ let api = getCookie('api')
     }
     // } 
 
-    //function to set cansend = true
+    //set cansend == true
+
     function canSendRST() {
       setTimeout(() => {
         cansend = true;
@@ -395,7 +455,7 @@ let api = getCookie('api')
     addMessageElement($el, options);
   }
 
-  // Adds the visual chat message to the message list
+  //add a chat message
   const addChatMessage = (data, options) => {
     // Don't fade the message in if there is an 'X was typing'
     let $typingMessages = getTypingMessages(data);
@@ -409,10 +469,8 @@ let api = getCookie('api')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
 
-    let $classDiv = $('<span class="class"/>')
-      .text(localStorage.class)
-      .css('color', "#FFFFF");
-    let $messageBodyDiv = $('<span class="messageBody">')
+    let $imgClass = $('<img src="' +   localStorage.profileIcon + '" style="margin-right:10px; float:left; width:50px; height:50px"/>')
+    let $messageBodyDiv = $('<span   class="messageBody">')
       .text(data.message);
 
     let typingClass = data.typing ? 'typing' : '';
@@ -421,8 +479,10 @@ let api = getCookie('api')
       .addClass(typingClass)
       .append($usernameDiv, $messageBodyDiv);
 
-    addMessageElement($classDiv, options);
+      addMessageElement($imgClass);
+
     addMessageElement($messageDiv, options);
+
   }
 
   // Adds the visual chat typing message
@@ -552,6 +612,7 @@ let api = getCookie('api')
 
   document.getElementById('logout').onclick = function () {
     localStorage.username = "";
+    localStorage.profileIcon = '';
     document.getElementById('chatpage').style.display = 'none';
     document.getElementById('loginpage').style.display = 'inline';
     username = cleanInput($usernameInput.val().trim());

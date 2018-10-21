@@ -1,12 +1,16 @@
-<!doctype html>
+<!--  coded by vilhelm backander -->
+<!-- open source provided by vilhelm backander -->
+<!doctype html >
 <html lang="en">
+
+    <!-- <embed src="http://www.interactonline.tk" style="width:80%; height: 60%;"> -->
 
 <head>
   <meta charset="UTF-8">
   <title>Interactonline | Login</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-  <link rel="stylesheet" href="Styles.css">
+  <link rel="stylesheet" llang="SCSS" href="Styles.css">
   <link rel="stylesheet" href="Loading.css">
   <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
 </head>
@@ -40,10 +44,23 @@
     </div>
   </header>
 
+
       <div id="chatArea" class="chatArea">
         <div class="spacer"></div>
+        
         <!-- <img id="img" class="img"> -->
         <ul id="messages" class="messages"></ul>
+
+    <div align="left"></div>
+        <img style="
+        /* margin:0% 75%; */
+        width:50px;
+        height:50px;
+        " id="profile-icon">
+    <input type="file" id="profile_pic" class="profile-pic" name="profile_pic" accept=".jpg, .jpeg, .png">
+    </div>
+       
+
         <input id="inputmessage" class="inputMessage" placeholder="Send a message..." />
       </div>
 
@@ -56,16 +73,21 @@
         height:12%;
         cursor: pointer;
         " id="settings" src="IMG/Settings.png">
+        <div id="test" class="test">
+
+        </div>
         <div align="center">
         <h1 class="PL">Interactonline </h1>
         <h3 class="PL">Type in a username to continue!</h3>
         <div class="spacer"></div>
       </div>
+      
 
       <div align="center"">
         <button id="join" class="button-primary ji">Join interact!</button>
       </div>
       <div id="name" class="form">
+        
         <h3 class="title">Type in a name!</h3>
         <input type="username" class="usernameInput" type="text" placeholder="username..." />
       </div>
@@ -73,6 +95,7 @@
         <h3 id="passtitle" class="passtitle">Admin password</h3>
         <input type="pin" id="passinput" class="passinput" placeholder="(only for admins)">
       </div>
+      
     </li>
   </ul>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

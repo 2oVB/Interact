@@ -5,6 +5,16 @@
   color: white;
 }
 
+.profile-pic {
+  color:white;
+  width:50px;
+  height:50px;
+}
+
+.test {
+  /* margin:-10% 80% */
+}
+
 
 /* Fix user-agent */
 
@@ -75,7 +85,8 @@ ul {
 
 .login.page .form {
   height: 100px;
-  margin-top: -20px;
+  margin-top: 0%;
+
   position: absolute;
 
   text-align: center;
