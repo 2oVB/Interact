@@ -593,7 +593,6 @@ $(function () {
       } else {
         document.title = 'interactonline | Chat'
         setUsername();
-        location.href = 'http://localhost:3000/#chat';
       }
     }
   });
@@ -605,7 +604,6 @@ $(function () {
   document.getElementById('join').onclick = function() {
     document.title = 'interactonline | Chat'
     setUsername();
-    location.href = 'http://localhost:3000/#chat';
   }
 
 
@@ -618,7 +616,6 @@ $(function () {
     document.getElementById('chatpage').style.display = 'none';
     document.getElementById('loginpage').style.display = 'inline';
     username = cleanInput($usernameInput.val().trim());
-    location.href = 'http://localhost:3000/#logout';
   }
 
   document.getElementById('settings').onclick = function() {
