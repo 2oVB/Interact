@@ -615,7 +615,7 @@ $(function () {
     localStorage.profileIcon = '';
     document.getElementById('chatpage').style.display = 'none';
     document.getElementById('loginpage').style.display = 'inline';
-    username = cleanInput($usernameInput.val().trim());
+    username = cleanInput($usernameInput.val().trim()); 
   }
 
   document.getElementById('settings').onclick = function() {

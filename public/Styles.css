@@ -218,7 +218,7 @@ header ul li {
 }
 
 .messages {
-  height: 90%;
+  height: 80%;
   color: white;
   margin: 0;
   overflow-y: scroll;
@@ -270,8 +270,8 @@ header ul li {
 .profile {
   /* padding-left: 100px; */
   position: absolute;
-  margin:-10% 0%;
-}
+  margin:-5% 30%;
+} 
 
 
 .inputMessage,
@@ -284,7 +284,7 @@ header ul li {
   position: absolute;
   right: 30%;
   width: 50%;
-  margin:-10% auto;
+  margin:-5 % auto;
 }
 
 /* modes */
