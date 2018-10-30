@@ -58,7 +58,6 @@ $(function() {
 
     let bool2 = true;
     let bool3 = true;
-    
     //checks the messages every frame
     const check = () => {
       password = cleanInput($passInput.val().trim());
